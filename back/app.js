@@ -4,8 +4,9 @@ const  express  =  require('express');
 const  bodyParser  =  require('body-parser');
 const  morgan  =  require('morgan');
 const  app  =  express();
+const connection = require('./helpers/db');
 
-const authRouter = require('./routes/auth/ auth');
+const authRouter = require('./routes/auth/auth');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended:  false }));
