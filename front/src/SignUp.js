@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TextField from '@material-ui/core/TextField';
+import { Grid, Paper, Button } from '@material-ui/core';
 
 class SignUp extends Component {
     constructor(props) {
@@ -11,6 +13,7 @@ class SignUp extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleChange(event){
@@ -25,6 +28,7 @@ class SignUp extends Component {
     handleSubmit(event){
         event.preventDefault()
         console.log(this.state)
+        this.props.toggleOpen()
 
         fetch("/auth/signup",
         {
@@ -43,15 +47,16 @@ class SignUp extends Component {
 
   render() {
     return(
-        <div>
-            <h1>{this.state.flash}</h1>
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" name="name" onChange={this.handleChange}/> 
-                <input type="text" name="lastname" onChange={this.handleChange}/> 
-                <input type="email" name="email" onChange={this.handleChange}/> 
-                <input type="password" name="password" onChange={this.handleChange}/> 
-                {/*<input type="password" name="passwordconf" onChange={this.handleChange}/> */}
-                <input type="submit" value="Submit"/>
+        <div className="form">
+            <h1 style={{ textAlign:"left"}}>Sign Up</h1>
+            <form style={{ marginRight:"20px", display:"flex", flexDirection: "column"}} onSubmit={this.handleSubmit}>
+                <TextField style={{width:"100%"}} type="text" label="first name" name="name" onChange={this.handleChange} />
+                <TextField style={{width:"100%"}} type="text" label="last name" name="lastname" onChange={this.handleChange} />
+                <TextField style={{width:"100%"}} type="email" label="email" name="email" onChange={this.handleChange} />
+                <TextField style={{width:"100%"}} type="password" label="password" name="password" onChange={this.handleChange} margin-bottom="normal" />
+                <Button style={{width: "fit-content", marginTop: "20px", alignSelf:"flex-end"}} type="submit" variant="contained" color="primary">
+                    Submit
+                </Button>
             </form>
             
         </div>
