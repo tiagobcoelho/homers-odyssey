@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
-import SignUp from './SignUp'
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import SignUp from './components/SignUp'
+import SignIn from './components/SignIn'
+import Profile from './components/Profile'
 import { MuiThemeProvider, Grid, Paper, Snackbar } from '@material-ui/core';
 function App() {
 
   const [open, setOpen] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const toggleOpen = () => {
     setOpen(!open)
@@ -16,6 +20,12 @@ function App() {
     }
     setOpen(false);
   }
+
+  const handleLoggedIn = () => {
+    setLoggedIn(!loggedIn)
+  }
+
+  
   
   return (
     <div className="App">
@@ -46,9 +56,19 @@ function App() {
                             justify="center"
                             alignContent='center'
                             >
-                                    <SignUp toggleOpen={toggleOpen}  />
+                              <BrowserRouter>
+                                <Switch>
+                                  <Route path={["/", "/signin"]} exact >
+                                    {loggedIn ? <Redirect to="/profile" /> : 
+                                    <SignIn handleLoggedIn={handleLoggedIn}  />}
+                                  </Route>
+                                  <Route path="/signup" component={SignUp}/>
+                                  <Route  path="/profile">
+                                    {loggedIn ? <Profile handleLoggedIn={handleLoggedIn} /> :  <Redirect to="/" />}
+                                  </Route>
+                                </Switch>
+                              </BrowserRouter>
                             </Grid>
-                            
                         </Grid>
                 </Paper>
             </Grid>

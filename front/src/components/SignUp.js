@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
-import { Grid, Paper, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 class SignUp extends Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class SignUp extends Component {
     handleSubmit(event){
         event.preventDefault()
         console.log(this.state)
-        this.props.toggleOpen()
+
 
         fetch("/auth/signup",
         {
@@ -48,17 +49,17 @@ class SignUp extends Component {
   render() {
     return(
         <div className="form">
-            <h1 style={{ textAlign:"left"}}>Sign Up</h1>
-            <form style={{ marginRight:"20px", display:"flex", flexDirection: "column"}} onSubmit={this.handleSubmit}>
-                <TextField style={{width:"100%"}} type="text" label="first name" name="name" onChange={this.handleChange} />
-                <TextField style={{width:"100%"}} type="text" label="last name" name="lastname" onChange={this.handleChange} />
-                <TextField style={{width:"100%"}} type="email" label="email" name="email" onChange={this.handleChange} />
-                <TextField style={{width:"100%"}} type="password" label="password" name="password" onChange={this.handleChange} margin-bottom="normal" />
-                <Button style={{width: "fit-content", marginTop: "20px", alignSelf:"flex-end"}} type="submit" variant="contained" color="primary">
-                    Submit
+            <h1>Sign Up</h1>
+            <form onSubmit={this.handleSubmit}>
+                <TextField className="input" type="text" label="first name" name="name" onChange={this.handleChange} />
+                <TextField className="input" type="text" label="last name" name="lastname" onChange={this.handleChange} />
+                <TextField className="input" type="email" label="email" name="email" onChange={this.handleChange} />
+                <TextField className="input" type="password" label="password" name="password" onChange={this.handleChange} margin-bottom="normal" />
+                <Button className="submit-btn" type="submit" variant="contained" color="primary">
+                    <Link to="/">Submit</Link>
                 </Button>
             </form>
-            
+            <p>Have an account? <Link to="/signin">Login</Link></p>
         </div>
        
     );
